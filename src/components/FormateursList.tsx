@@ -122,6 +122,7 @@ function FormateursList() {
     setIsModalOpen(true);
   };
 
+  
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setEditingFormateur(null);
