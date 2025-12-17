@@ -10,7 +10,6 @@ import {
   ChevronRight
 } from 'lucide-react';
 
-// Interface pour les items de menu
 interface MenuItem {
   id: string;
   label: string;
@@ -18,37 +17,38 @@ interface MenuItem {
   path: string;
 }
 
-// Items du menu (simplifiés selon les nouvelles options)
+interface SidebarProps {
+  onNavigate: (page: string) => void;
+  currentPage: string;
+}
+
 const menuItems: MenuItem[] = [
-  { id: '1', label: 'Dashboard', icon: Home, path: '/' },
-  { id: '2', label: 'Formateur', icon: UserCog, path: '/formateur' },
-  { id: '3', label: 'Promotion', icon: Users, path: '/promotion' },
-  { id: '4', label: 'Etudiant', icon: GraduationCap, path: '/etudiant' },
-  { id: '5', label: 'Espace pédagogique', icon: BookOpen, path: '/espace' }
+  { id: 'dashboard', label: 'Dashboard', icon: Home, path: '/' },
+  { id: 'formateur', label: 'Formateur', icon: UserCog, path: '/formateur' },
+  { id: 'promotion', label: 'Promotion', icon: Users, path: '/promotion' },
+  { id: 'etudiant', label: 'Etudiant', icon: GraduationCap, path: '/etudiant' },
+  { id: 'espace', label: 'Espace pédagogique', icon: BookOpen, path: '/espace' }
 ];
 
-function Sidebar() {
+function Sidebar({ onNavigate, currentPage }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(true);
-  const [activeItem, setActiveItem] = useState('1');
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const handleItemClick = (itemId: string) => {
-    setActiveItem(itemId);
-    console.log(`Navigation vers: ${menuItems.find(item => item.id === itemId)?.path}`);
+    onNavigate(itemId);
   };
 
   return (
     <div
       className={`
         ${isOpen ? 'w-72' : 'w-20'}
-        h-screen ml-0 absolute bottom-0 left-0
+        h-screen absolute bottom-0 mr-10 left-0
         bg-linear-to-b from-slate-900 via-slate-800 to-slate-900
         text-white transition-all duration-300 ease-in-out
         shadow-2xl flex flex-col border-r border-slate-700
       `}
     >
-      {/* Header */}
       <div className="p-4 flex items-center justify-between border-b border-slate-700">
         <div className={`flex items-center gap-3 ${!isOpen && 'justify-center w-full'}`}>
           <div className="bg-linear-to-br from-blue-500 to-blue-600 p-2 rounded-xl shadow-lg">
@@ -73,12 +73,11 @@ function Sidebar() {
         )}
       </div>
 
-      {/* Menu Items */}
       <nav className="flex-1 overflow-y-auto py-4 px-2">
         <ul className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
-            const isActive = activeItem === item.id;
+            const isActive = currentPage === item.id;
 
             return (
               <li key={item.id}>
@@ -88,7 +87,7 @@ function Sidebar() {
                     w-full flex items-center gap-3 px-4 py-3 rounded-xl
                     transition-all duration-200 relative
                     ${isActive
-                      ? 'bg-linear-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                      ? 'bg-linear-to-r from-blue-600 to-blue-100 text-white shadow-lg'
                       : 'text-slate-300 hover:bg-slate-700/50 hover:text-white'
                     }
                     ${!isOpen && 'justify-center px-3'}
@@ -110,7 +109,6 @@ function Sidebar() {
                     </>
                   )}
                   
-                  {/* Tooltip pour mode réduit */}
                   {!isOpen && (
                     <div className="absolute left-full ml-2 px-3 py-2 bg-slate-800 text-white text-sm rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
                       {item.label}
@@ -123,7 +121,6 @@ function Sidebar() {
         </ul>
       </nav>
 
-      {/* Toggle button pour mode réduit */}
       {!isOpen && (
         <div className="p-4 flex justify-center border-t border-slate-700">
           <button
@@ -135,7 +132,6 @@ function Sidebar() {
         </div>
       )}
 
-      {/* Footer */}
       <div className={`p-4 border-t border-slate-700 ${!isOpen && 'flex justify-center'}`}>
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
