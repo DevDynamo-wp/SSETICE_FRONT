@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
 import FormateursList from './components/FormateursList';
+import ConsultationEspaces from './components/ConsultationEspaces';
 import "./App.css";
 
 function App() {
@@ -37,14 +38,7 @@ function App() {
         );
       case 'espace':
         return (
-          <div className="ml-10 w-full flex-1 p-8 bg-gradient-to-br from-gray-50 to-gray-100">
-            <div className="max-w-7xl mx-auto">
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-4">Espace Pédagogique</h1>
-                <p className="text-gray-600">Gestion de l'espace pédagogique (à venir)</p>
-              </div>
-            </div>
-          </div>
+          <ConsultationEspaces />
         );
       default:
         return <Dashboard />;
