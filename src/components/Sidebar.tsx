@@ -18,6 +18,7 @@ interface MenuItem {
   path: string;
 }
 
+
 // Items du menu (simplifiés selon les nouvelles options)
 const menuItems: MenuItem[] = [
   { id: '1', label: 'Dashboard', icon: Home, path: '/' },
