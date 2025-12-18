@@ -41,7 +41,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 m-0 to-gray-100">
       <Sidebar 
         onNavigate={setCurrentPage} 
         currentPage={currentPage}
@@ -53,7 +53,7 @@ function App() {
       <main 
         className={`
           min-h-screen transition-all duration-300 ease-in-out
-          ${sidebarOpen ? 'ml-72' : 'ml-20'}
+          ${sidebarOpen ? 'ml-65 mr-0' : 'ml-20 min-h-screen'}
         `}
       >
         <div className="w-full">

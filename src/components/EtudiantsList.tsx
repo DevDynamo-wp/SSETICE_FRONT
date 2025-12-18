@@ -341,7 +341,7 @@ function EtudiantsList() {
   };
 
   return (
-    <div className="m-auto w-auto flex-1 p-6 bg-linear-to-br from-gray-50 to-gray-100 overflow-auto">
+    <div className=" m-0 w-full flex-1 p-2 bg-linear-to-br from-gray-50 to-gray-100 overflow-auto">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-gray-200">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-8">
