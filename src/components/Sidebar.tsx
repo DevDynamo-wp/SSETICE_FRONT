@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Home,
   UserCog,
@@ -20,6 +19,8 @@ interface MenuItem {
 interface SidebarProps {
   onNavigate: (page: string) => void;
   currentPage: string;
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
 const menuItems: MenuItem[] = [
@@ -30,11 +31,7 @@ const menuItems: MenuItem[] = [
   { id: 'espace', label: 'Espace pédagogique', icon: BookOpen, path: '/espace' }
 ];
 
-function Sidebar({ onNavigate, currentPage }: SidebarProps) {
-  const [isOpen, setIsOpen] = useState(true);
-
-  const toggleSidebar = () => setIsOpen(!isOpen);
-
+function Sidebar({ onNavigate, currentPage, isOpen, onToggle }: SidebarProps) {
   const handleItemClick = (itemId: string) => {
     onNavigate(itemId);
   };
@@ -43,8 +40,8 @@ function Sidebar({ onNavigate, currentPage }: SidebarProps) {
     <div
       className={`
         ${isOpen ? 'w-72' : 'w-20'}
-        h-screen absolute bottom-0 mr-10 left-0
-        bg-linear-to-b from-slate-900 via-slate-800 to-slate-900
+        h-screen fixed top-0 left-0 z-40
+        bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900
         text-white transition-all duration-300 ease-in-out
         shadow-2xl flex flex-col border-r border-slate-700
       `}
@@ -52,21 +49,23 @@ function Sidebar({ onNavigate, currentPage }: SidebarProps) {
       {!isOpen && (
         <div className="p-4 flex justify-center">
           <button
-            onClick={toggleSidebar}
+            onClick={onToggle}
             className="p-2 rounded-lg hover:bg-slate-700 transition-colors hover:scale-110"
+            aria-label="Ouvrir le menu"
           >
             <Menu className="w-5 h-5" />
           </button>
         </div>
       )}
+      
       <div className="p-4 flex items-center justify-between border-b border-slate-700">
         <div className={`flex items-center gap-3 ${!isOpen && 'justify-center w-full'}`}>
-          <div className="bg-linear-to-br from-blue-500 to-blue-600 p-2 rounded-xl shadow-lg">
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-2 rounded-xl shadow-lg">
             <GraduationCap className="text-white w-6 h-6" />
           </div>
           {isOpen && (
             <div>
-              <h2 className="font-bold text-lg bg-linear-to-r from-white to-blue-100 bg-clip-text text-transparent">
+              <h2 className="font-bold text-lg bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
                 Gestion Académique
               </h2>
               <p className="text-xs text-slate-300">Plateforme de gestion</p>
@@ -75,8 +74,9 @@ function Sidebar({ onNavigate, currentPage }: SidebarProps) {
         </div>
         {isOpen && (
           <button
-            onClick={toggleSidebar}
+            onClick={onToggle}
             className="p-2 rounded-lg hover:bg-slate-700 transition-colors hover:scale-105"
+            aria-label="Fermer le menu"
           >
             <X className="w-5 h-5" />
           </button>
@@ -97,7 +97,7 @@ function Sidebar({ onNavigate, currentPage }: SidebarProps) {
                     w-full flex items-center gap-3 px-4 py-3 rounded-xl
                     transition-all duration-200 relative
                     ${isActive
-                      ? 'bg-linear-to-r from-blue-600 to-blue-100 text-white shadow-lg'
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg'
                       : 'text-slate-300 hover:bg-slate-700/50 hover:text-white'
                     }
                     ${!isOpen && 'justify-center px-3'}
@@ -133,7 +133,7 @@ function Sidebar({ onNavigate, currentPage }: SidebarProps) {
 
       <div className={`p-4 border-t border-slate-700 ${!isOpen && 'flex justify-center'}`}>
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
             A
           </div>
           {isOpen && (
