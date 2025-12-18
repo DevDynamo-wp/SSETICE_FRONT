@@ -49,6 +49,16 @@ function Sidebar({ onNavigate, currentPage }: SidebarProps) {
         shadow-2xl flex flex-col border-r border-slate-700
       `}
     >
+      {!isOpen && (
+        <div className="p-4 flex justify-center">
+          <button
+            onClick={toggleSidebar}
+            className="p-2 rounded-lg hover:bg-slate-700 transition-colors hover:scale-110"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        </div>
+      )}
       <div className="p-4 flex items-center justify-between border-b border-slate-700">
         <div className={`flex items-center gap-3 ${!isOpen && 'justify-center w-full'}`}>
           <div className="bg-linear-to-br from-blue-500 to-blue-600 p-2 rounded-xl shadow-lg">
@@ -120,17 +130,6 @@ function Sidebar({ onNavigate, currentPage }: SidebarProps) {
           })}
         </ul>
       </nav>
-
-      {!isOpen && (
-        <div className="p-4 flex justify-center border-t border-slate-700">
-          <button
-            onClick={toggleSidebar}
-            className="p-2 rounded-lg hover:bg-slate-700 transition-colors hover:scale-110"
-          >
-            <Menu className="w-5 h-5" />
-          </button>
-        </div>
-      )}
 
       <div className={`p-4 border-t border-slate-700 ${!isOpen && 'flex justify-center'}`}>
         <div className="flex items-center gap-3">
